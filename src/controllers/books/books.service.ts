@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
+import { Book } from './entities/book.entity';
 
 @Injectable()
 export class BooksService {
@@ -8,8 +9,8 @@ export class BooksService {
     return 'This action adds a new book';
   }
 
-  findAll() {
-    return `This action returns all books`;
+  findAll(params: any) {
+    return params.length > 0 ? `findAll returns ${params}` : `findAll works`;
   }
 
   findOne(id: number) {
