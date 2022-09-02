@@ -7,10 +7,12 @@ import {
   Param,
   Delete,
   Query,
+  Req,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
+import { Request } from 'express';
 
 @Controller('books')
 export class BooksController {
@@ -18,16 +20,13 @@ export class BooksController {
 
   @Post()
   create(@Body() createBookDto: CreateBookDto) {
-    return this.booksService.create(createBookDto);
+    const newBook: any = createBookDto;
+    return this.booksService.create(newBook);
   }
 
   @Get()
-  findAll(@Query('order') order: string) {
-    const params = [];
-    if (order !== undefined) {
-      params.push(`'${order}'`);
-    }
-    return this.booksService.findAll(params);
+  findAll(@Req() request: Request) {
+    return this.booksService.findAll(request.query);
   }
 
   @Get(':id')

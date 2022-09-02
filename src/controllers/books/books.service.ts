@@ -6,11 +6,19 @@ import { Book } from './entities/book.entity';
 @Injectable()
 export class BooksService {
   create(createBookDto: CreateBookDto) {
-    return 'This action adds a new book';
+    return createBookDto;
   }
 
-  findAll(params: any) {
-    return params.length > 0 ? `findAll returns ${params}` : `findAll works`;
+  findAll(params): any {
+    let msg = 'findAll funcionando. Parametros: ';
+    if (params.order !== undefined) {
+      msg = msg + `order:${params.order}`;
+    }
+
+    if (params.limit !== undefined) {
+      msg = msg + `limit:${params.limit}`;
+    }
+    return msg;
   }
 
   findOne(id: number) {
